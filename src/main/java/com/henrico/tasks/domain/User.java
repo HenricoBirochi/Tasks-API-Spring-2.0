@@ -1,7 +1,7 @@
 package com.henrico.tasks.domain;
 
-import com.henrico.tasks.domain.exception.InvalidPasswordException;
 import com.henrico.tasks.domain.enums.UserRole;
+import com.henrico.tasks.domain.exception.InvalidPasswordException;
 
 public class User {
 
@@ -12,6 +12,16 @@ public class User {
     private String password;
     private Integer totalCoins;
     private UserRole userRole;
+
+    private void isPasswordValid(String password) {
+        String regex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).+$";
+        if(password.length() < 8) {
+            throw new InvalidPasswordException("The password has less words then 8!");
+        }
+        if(!password.matches(regex)) {
+            throw new InvalidPasswordException("The password needs at least 1 number, 1 special character and 1 capital character!");
+        }
+    }
 
     public User() {
     }
@@ -95,13 +105,4 @@ public class User {
         this.userRole = userRole;
     }
 
-    private void isPasswordValid(String password) {
-        String regex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).+$";
-        if(password.length() < 8) {
-            throw new InvalidPasswordException("The password has less words then 8!");
-        }
-        if(!password.matches(regex)) {
-            throw new InvalidPasswordException("The password needs at least 1 number, 1 special character and 1 capital character!");
-        }
-    }
 }
