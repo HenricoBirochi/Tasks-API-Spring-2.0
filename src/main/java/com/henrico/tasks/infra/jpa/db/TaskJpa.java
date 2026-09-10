@@ -59,7 +59,7 @@ public class TaskJpa {
     @JoinColumn(name = "user_id", nullable = false)
     private UserJpa user;
 
-    @OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskTagJpa> taskTags;
 
 }

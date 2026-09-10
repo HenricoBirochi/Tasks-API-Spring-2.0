@@ -42,7 +42,7 @@ public class TagJpa {
     @JoinColumn(name = "user_id", nullable = false)
     private UserJpa user;
 
-    @OneToMany(mappedBy = "tags", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskTagJpa> taskTags;
 
 }
