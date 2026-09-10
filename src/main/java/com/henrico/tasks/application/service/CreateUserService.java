@@ -34,11 +34,11 @@ public class CreateUserService implements CreateUserUseCase {
         }
     }
 
-    private UserOutput createUserInDb(UserInput userInputDTO) {
-        User user = UserServiceMapper.userInputDtoToUser(userInputDTO);
+    private UserOutput createUserInDb(UserInput userInput) {
+        User user = UserServiceMapper.userInputToUser(userInput);
         setEmptyFields(user);
         User userFromDb = userRepositoryGateway.saveUser(user);
-        return UserServiceMapper.userToUserOutputDto(userFromDb);
+        return UserServiceMapper.userToUserOutput(userFromDb);
     }
 
     private void setEmptyFields(User user) {

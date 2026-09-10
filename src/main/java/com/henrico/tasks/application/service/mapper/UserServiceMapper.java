@@ -6,16 +6,16 @@ import com.henrico.tasks.domain.User;
 
 public class UserServiceMapper {
 
-    public static User userInputDtoToUser(UserInput userInputDTO) {
+    public static User userInputToUser(UserInput userInput) {
         return new User(
-                userInputDTO.getUserName(),
-                userInputDTO.getName(),
-                userInputDTO.getEmail(),
-                userInputDTO.getPassword()
+                userInput.getUserName(),
+                userInput.getName(),
+                userInput.getEmail(),
+                userInput.getPassword()
         );
     }
 
-    public static UserOutput userToUserOutputDto(User user) {
+    public static UserOutput userToUserOutput(User user) {
         return new UserOutput(
                 user.getUserName(),
                 user.getName(),
