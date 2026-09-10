@@ -1,11 +1,25 @@
 package com.henrico.tasks.infra.jpa.db;
 
-import com.henrico.tasks.domain.enums.UserRole;
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.List;
 import java.util.UUID;
+
+import com.henrico.tasks.domain.enums.UserRole;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -18,8 +32,8 @@ public class UserJpa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
-    private UUID userId;
+    @Column(name = "id", nullable = false, unique = true)
+    private UUID id;
 
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
@@ -39,6 +53,9 @@ public class UserJpa {
     @Column(name = "user_role", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<TagJpa> tags;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<TaskJpa> tasks;

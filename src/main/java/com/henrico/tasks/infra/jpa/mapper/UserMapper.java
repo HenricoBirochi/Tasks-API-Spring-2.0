@@ -18,7 +18,7 @@ public class UserMapper {
 
     public static User toUserDomain(UserJpa userJpa){
         return new User(
-                userJpa.getUserId().toString(),
+                userJpa.getId().toString(),
                 userJpa.getUserName(),
                 userJpa.getName(),
                 userJpa.getEmail(),
