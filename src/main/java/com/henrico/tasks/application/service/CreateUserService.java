@@ -1,7 +1,7 @@
 package com.henrico.tasks.application.service;
 
 import com.henrico.tasks.application.gateway.UserRepositoryGateway;
-import com.henrico.tasks.application.service.exception.UserAlreadyRegisteredException;
+import com.henrico.tasks.application.service.exception.UserRegisteredException;
 import com.henrico.tasks.application.service.mapper.UserServiceMapper;
 import com.henrico.tasks.application.usecase.CreateUserUseCase;
 import com.henrico.tasks.application.usecase.dto.input.UserInput;
@@ -19,18 +19,18 @@ public class CreateUserService implements CreateUserUseCase {
 
     @Override
     public UserOutput createUser(UserInput user) {
-        isUserNameOrEmailAlreadyRegistered(user.getUserName(), user.getEmail());
+        isUserNameOrEmailRegistered(user.getUserName(), user.getEmail());
         return createUserInDb(user);
     }
 
-    private void isUserNameOrEmailAlreadyRegistered(String userName, String email) {
+    private void isUserNameOrEmailRegistered(String userName, String email) {
         User userFromDb = userRepositoryGateway.findUserByUserName(userName);
         if(userFromDb != null) {
-            throw new UserAlreadyRegisteredException("The user " + userFromDb.getUserName() + " is already registered!");
+            throw new UserRegisteredException("The user " + userFromDb.getUserName() + " is already registered!");
         }
         User userFromDb2 = userRepositoryGateway.findUserByEmail(email);
         if(userFromDb2 != null) {
-            throw new UserAlreadyRegisteredException("The user " + userFromDb2.getEmail() + " is already registered!");
+            throw new UserRegisteredException("The user " + userFromDb2.getEmail() + " is already registered!");
         }
     }
 
